@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
@@ -51,35 +52,7 @@ public class FFMPEGManager {
         // [{"name" : "base64 value"}]
 
         this.imageData = imageData;
-
-        try {
-            File file = new File(outputPath);
-
-            if(file.isDirectory()){
-                String[] children = file.list();
-                for (int i = 0; i < children.length; i++) {
-                    new File(file, children[i]).delete();
-                }
-            }
-
-            file.mkdirs();
-
-            JSONArray jsonArray = new JSONArray(imageData);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String imageName = "img_" + i;
-                String base64 = jsonObject.getString(imageName);
-                Log.d("base64",base64);
-
-                saveImageToSDCard(base64, outputPath, imageName);
-            }
-
-            loadFFMPEG();
-
-        } catch (Exception e) {
-            Log.d("convert ERROR",e.getMessage());
-        }
+        new CreateImageFilesTask().execute("");
     }
 
     private void saveImageToSDCard(String base64, String outputPath, String imageName) {
@@ -168,11 +141,59 @@ public class FFMPEGManager {
                 public void onFinish() {
                     Log.d("executeFFMPEG", "onFinish: ");
 
-
+                    //CALLBACK
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
             // Handle if FFmpeg is already running
         }
+    }
+
+    private class CreateImageFilesTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                File file = new File(outputPath);
+
+                if(file.isDirectory()){
+                    String[] children = file.list();
+                    for (int i = 0; i < children.length; i++) {
+                        new File(file, children[i]).delete();
+                    }
+                }
+
+                file.mkdirs();
+
+                JSONArray jsonArray = new JSONArray(imageData);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String imageName = "img_" + i;
+                    String base64 = jsonObject.getString(imageName);
+                    //Log.d("base64", base64);
+                    Log.d("imageName", imageName);
+
+                    saveImageToSDCard(base64, outputPath, imageName);
+                }
+
+                loadFFMPEG();
+
+            } catch (Exception e) {
+                Log.d("convert ERROR",e.getMessage());
+            }
+
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 }

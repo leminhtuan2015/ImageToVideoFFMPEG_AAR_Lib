@@ -22,14 +22,14 @@ public class Image2Video {
     }
 
     public void goToFFMPEGMainActivity(String imageData){
-        Log.d("goToFFMPEGMainActivity", "goToFFMPEGMainActivity: " + imageData);
+        //Log.d("goToFFMPEGMainActivity", "goToFFMPEGMainActivity: " + imageData);
         Intent intent = new Intent(application, FFMPEGMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         application.startActivity(intent);
     }
 
     public void convertImagesToVideo(String imageData){
-        Log.d("convertImagesToVideo", imageData);
+        //Log.d("convertImagesToVideo", imageData);
         FFMPEGManager.getInstance(application).convertImagesToVideo(imageData);
     }
 }
