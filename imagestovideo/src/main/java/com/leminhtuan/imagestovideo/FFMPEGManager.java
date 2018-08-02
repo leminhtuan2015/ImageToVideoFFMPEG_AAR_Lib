@@ -30,6 +30,7 @@ public class FFMPEGManager {
     private static FFmpeg ffmpeg;
     private static FFMPEGManager fFMPEGManager;
     private static Context context;
+    private FFMPEGCallBack ffmpegCallBack;
     private String imageData = "";
     private String outputPath = "/sdcard/color_by_number/images/";
 
@@ -48,10 +49,10 @@ public class FFMPEGManager {
         return fFMPEGManager;
     }
 
-    public void convertImagesToVideo(String imageData){
+    public void convertImagesToVideo(String imageData, FFMPEGCallBack ffmpegCallBack){
         // [{"name" : "base64 value"}]
-
         this.imageData = imageData;
+        this.ffmpegCallBack = ffmpegCallBack;
         new CreateImageFilesTask().execute("");
     }
 
@@ -130,6 +131,7 @@ public class FFMPEGManager {
                 @Override
                 public void onFailure(String message) {
                     Log.d("executeFFMPEG", "onFailure: " + message);
+                    ffmpegCallBack.onError(message);
                 }
 
                 @Override
@@ -142,6 +144,7 @@ public class FFMPEGManager {
                     Log.d("executeFFMPEG", "onFinish: ");
 
                     //CALLBACK
+                    ffmpegCallBack.onSuccess(outputPath);
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {

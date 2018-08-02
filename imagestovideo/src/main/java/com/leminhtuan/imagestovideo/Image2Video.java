@@ -28,8 +28,8 @@ public class Image2Video {
         application.startActivity(intent);
     }
 
-    public void convertImagesToVideo(String imageData){
+    public void convertImagesToVideo(String imageData, FFMPEGCallBack ffmpegCallBack){
         //Log.d("convertImagesToVideo", imageData);
-        FFMPEGManager.getInstance(application).convertImagesToVideo(imageData);
+        FFMPEGManager.getInstance(application).convertImagesToVideo(imageData, ffmpegCallBack);
     }
 }
