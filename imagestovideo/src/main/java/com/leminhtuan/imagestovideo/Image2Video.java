@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.Dictionary;
+
 /**
  * Created by fuji on 7/30/18.
  */
@@ -19,10 +21,15 @@ public class Image2Video {
         this.application = application;
     }
 
-    public void goToFFMPEGMainActivity(){
-        Log.d("goToFFMPEGMainActivity", "goToFFMPEGMainActivity");
+    public void goToFFMPEGMainActivity(String imageData){
+        Log.d("goToFFMPEGMainActivity", "goToFFMPEGMainActivity: " + imageData);
         Intent intent = new Intent(application, FFMPEGMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         application.startActivity(intent);
+    }
+
+    public void convertImagesToVideo(String imageData){
+        Log.d("convertImagesToVideo", imageData);
+        FFMPEGManager.getInstance(application).convertImagesToVideo(imageData);
     }
 }

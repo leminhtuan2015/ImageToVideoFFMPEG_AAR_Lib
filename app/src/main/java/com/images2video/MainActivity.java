@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Clicked", "xxx");
 
                 Image2Video.instance.initialize(getApplication());
-                Image2Video.instance.goToFFMPEGMainActivity();
+                Image2Video.instance.goToFFMPEGMainActivity(null);
             }
         });
 
