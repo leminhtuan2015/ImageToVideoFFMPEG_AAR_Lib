@@ -52,7 +52,7 @@ public class FFMPEGManager {
 
     public void convertImagesToVideo(String imageData, FFMPEGCallBack ffmpegCallBack){
         // [{"name" : "base64 value"}]
-        outputPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName() + "/" + "files/images/";
+        outputPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + context.getPackageName() + "/" + "files" + "/images/";
         Log.d("outputPath: ","FFMPEGManager: " + outputPath);
 
         this.imageData = imageData;
