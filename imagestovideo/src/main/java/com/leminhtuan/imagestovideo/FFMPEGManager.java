@@ -112,7 +112,8 @@ public class FFMPEGManager {
     }
 
     private void executeFFMPEG(){
-        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec h264 " + outputPath + "video.mp4";
+        final String videoOutputPath = outputPath + "video.mp4";
+        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec h264 " + videoOutputPath;
 
 //        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec libx264 " + outputPath + "video.mp4";
 
@@ -150,7 +151,7 @@ public class FFMPEGManager {
                     Log.d("executeFFMPEG", "onFinish: ");
 
                     //CALLBACK
-                    ffmpegCallBack.onSuccess(outputPath);
+                    ffmpegCallBack.onSuccess(videoOutputPath);
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
