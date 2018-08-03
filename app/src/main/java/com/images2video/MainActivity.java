@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.leminhtuan.imagestovideo.FFMPEGMainActivity;
+import com.leminhtuan.imagestovideo.FFMPEGManager;
 import com.leminhtuan.imagestovideo.Image2Video;
 
 
@@ -26,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Clicked", "xxx");
 
-                Image2Video.instance.initialize(getApplication());
-                Image2Video.instance.goToFFMPEGMainActivity(null);
+//                Image2Video.instance.initialize(getApplication());
+//                Image2Video.instance.goToFFMPEGMainActivity(null);
+
+                FFMPEGManager.getInstance(getApplication()).loadFFMPEG();
             }
         });
 

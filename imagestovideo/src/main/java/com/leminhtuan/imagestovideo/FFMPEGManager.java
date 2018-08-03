@@ -84,7 +84,7 @@ public class FFMPEGManager {
         }
     }
 
-    private void loadFFMPEG(){
+    public void loadFFMPEG(){
         try {
             ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
 
@@ -108,7 +108,9 @@ public class FFMPEGManager {
     }
 
     private void executeFFMPEG(){
-        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec libx264 " + outputPath + "video.mp4";
+        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec h264 " + outputPath + "video.mp4";
+
+//        String s = "-f image2 " +  "-i " + outputPath + "img_%d.png" + " -vcodec libx264 " + outputPath + "video.mp4";
 
         String[] command = s.split(" ");
 
