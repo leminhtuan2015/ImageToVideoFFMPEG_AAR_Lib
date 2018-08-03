@@ -32,14 +32,15 @@ public class FFMPEGManager {
     private static Context context;
     private FFMPEGCallBack ffmpegCallBack;
     private String imageData = "";
-    private String outputPath = "/sdcard/color_by_number/images/";
+    //private String outputPath = "/sdcard/color_by_number/images/";
+
+    private String outputPath = "" ;
 
     private FFMPEGManager(){
 
     }
 
     public static FFMPEGManager getInstance(Context context){
-
         if(fFMPEGManager == null){
             FFMPEGManager.context = context;
             ffmpeg = FFmpeg.getInstance(context);
@@ -51,6 +52,9 @@ public class FFMPEGManager {
 
     public void convertImagesToVideo(String imageData, FFMPEGCallBack ffmpegCallBack){
         // [{"name" : "base64 value"}]
+        outputPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName() + "/" + "files/images/";
+        Log.d("outputPath: ","FFMPEGManager: " + outputPath);
+
         this.imageData = imageData;
         this.ffmpegCallBack = ffmpegCallBack;
         new CreateImageFilesTask().execute("");
