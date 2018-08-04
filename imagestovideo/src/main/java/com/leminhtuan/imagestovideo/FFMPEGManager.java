@@ -60,6 +60,15 @@ public class FFMPEGManager {
         new CreateImageFilesTask().execute("");
     }
 
+    public void convertImagesInFolderToVideo(String imageFolder, FFMPEGCallBack ffmpegCallBack){
+        // [{"name" : "base64 value"}]
+        outputPath = imageFolder;
+        Log.d("outputPath: ","convertImagesInFolderToVideo: " + outputPath);
+
+        this.ffmpegCallBack = ffmpegCallBack;
+        new ExportVideoFromImageFilesTask().execute("");
+    }
+
     private void saveImageToSDCard(String base64, String outputPath, String imageName) {
         try {
             byte[] imageBytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT);
@@ -188,6 +197,39 @@ public class FFMPEGManager {
                 }
 
                 loadFFMPEG();
+
+            } catch (Exception e) {
+                Log.d("convert ERROR",e.getMessage());
+            }
+
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    private class ExportVideoFromImageFilesTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String videoOutputPath = outputPath + "video.mp4";
+
+                File file = new File(videoOutputPath);
+
+                if(file.exists()){
+                    ffmpegCallBack.onSuccess(videoOutputPath);
+                } else {
+                    loadFFMPEG();
+                }
 
             } catch (Exception e) {
                 Log.d("convert ERROR",e.getMessage());
