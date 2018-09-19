@@ -35,6 +35,7 @@ public class FFMPEGManager {
     //private String outputPath = "/sdcard/color_by_number/images/";
 
     private String outputPath = "" ;
+    private int quality = 100;
 
     private FFMPEGManager(){
 
@@ -60,9 +61,10 @@ public class FFMPEGManager {
         new CreateImageFilesTask().execute("");
     }
 
-    public void convertImagesInFolderToVideo(String imageFolder, FFMPEGCallBack ffmpegCallBack){
+    public void convertImagesInFolderToVideo(String imageFolder, FFMPEGCallBack ffmpegCallBack, int quality){
         // [{"name" : "base64 value"}]
         outputPath = imageFolder;
+        this.quality = quality;
         Log.d("outputPath: ","convertImagesInFolderToVideo: " + outputPath);
 
         this.ffmpegCallBack = ffmpegCallBack;
@@ -85,7 +87,7 @@ public class FFMPEGManager {
                 file.createNewFile();
             }
 
-            image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            image.compress(Bitmap.CompressFormat.PNG, quality, stream);
 
             is.close();
             image.recycle();

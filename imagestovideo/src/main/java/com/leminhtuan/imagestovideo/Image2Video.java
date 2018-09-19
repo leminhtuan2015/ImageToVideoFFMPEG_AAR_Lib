@@ -33,8 +33,8 @@ public class Image2Video {
         FFMPEGManager.getInstance(application).convertImagesToVideo(imageData, ffmpegCallBack);
     }
 
-    public void convertImagesInFolderToVideo(String imageFolder, FFMPEGCallBack ffmpegCallBack){
+    public void convertImagesInFolderToVideo(String imageFolder, FFMPEGCallBack ffmpegCallBack, int quality){
         //Log.d("convertImagesToVideo", imageData);
-        FFMPEGManager.getInstance(application).convertImagesInFolderToVideo(imageFolder, ffmpegCallBack);
+        FFMPEGManager.getInstance(application).convertImagesInFolderToVideo(imageFolder, ffmpegCallBack, quality);
     }
 }
